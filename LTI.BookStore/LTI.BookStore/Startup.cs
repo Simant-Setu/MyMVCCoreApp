@@ -16,6 +16,7 @@ namespace LTI.BookStore
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -25,16 +26,60 @@ namespace LTI.BookStore
             {
                 app.UseDeveloperExceptionPage();
             }
+            /*
+            app.Use(async (context,next)=>
+            {
+                await context.Response.WriteAsync("Hello from first middleware");
+                await next();
+                await context.Response.WriteAsync("Hello from f irst middleware response");
+            });
 
+            app.Use(async (context, next) =>
+            {
+                await context.Response.WriteAsync("Hello from second middleware");
+                await next();
+                await context.Response.WriteAsync("Hello from second middleware response");
+            });
+
+            app.Use(async (context, next) =>
+            {
+                await context.Response.WriteAsync("Hello from third middleware");
+                await next();
+            });
+            */
+            //map the url to a particular resource
+            // if we comment the below routing code Map and MapGet method will throw exception
+            // app.routing must be placed before anny endpoint routing.
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
+                // mapping url to a particular resource
+                //MapGet only handle get request for this particular route
+                //endpoints.MapGet("/", async context => 
+
+                //Map will handle all the request to this particular route
+                /*
+                 endpoints.Map("/", async context => 
+                 {
+                     await context.Response.WriteAsync("Hello World!");
+                 });
+                 */
+
+                //endpoint for MVC route
+                endpoints.MapDefaultControllerRoute();
+            });
+
+            /*
+            //Custom Route
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.Map("/lti", async context =>
                 {
-                    await context.Response.WriteAsync("Hello World!");
+                    await context.Response.WriteAsync("Hello LTI!");
                 });
             });
+            */
         }
     }
 }
