@@ -8,9 +8,15 @@ namespace LTI.BookStore.Controllers
 {
     public class HomeController:Controller
     {
-        public string Index()
+        //public string Index()
+        public ViewResult Index() 
         {
-            return "LTI";
+            //return "LTI";
+            return View(); 
+        }
+        public ViewResult AboutUs()
+        {
+            return View();
         }
     }
 }
